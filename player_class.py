@@ -1,5 +1,5 @@
 class Tank:
-    def __init__(self):
+    def __init__(self, controls):
         pass
 
 class Red(Tank):
