@@ -4,6 +4,7 @@ from pygame.locals import *
 import sys
 from tank_class import *
 from obstacle import *
+from bullet import *
 
 #Define constants
 

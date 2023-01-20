@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import math
+from bullet import *
 
 class Tank:
     def __init__(self, window, x, y, angle, image, keyset):
@@ -13,8 +14,12 @@ class Tank:
         self.rect = pygame.Rect(self.x - int(self.image.get_rect()[2] / 2) , self.y - int(self.image.get_rect()[3] / 2), self.image.get_rect()[2], self.image.get_rect()[3])
         self.keyset = keyset
         self.previous_position = (x, y)
+        self.fire_cooldown = 0
 
     def update(self, active_keys, obstacles, tanks):
+        if self.fire_cooldown < 0:
+            self.fire_cooldown -= 1
+
         #Endrer rotasjon
         if active_keys[self.keyset[3]]:
             self.angle -= self.speed
@@ -63,4 +68,10 @@ class Tank:
         (self.x - int(image_copy.get_width() / 2),
          self.y - int(image_copy.get_height() / 2)))
 
-
+    def bulletfire(self, active_keys, bullets):
+        if active_keys[self.keyset[4]]:
+            if self.fire_cooldown == 0:
+                self.fire_cooldown = 30
+                bullet = Bullet(self.window, self.x - int(self.image.get_rect()[2] / 2), self.y - int(self.image.get_rect()[3] / 2), self.angle)
+                bullets.append(bullet)
+            

@@ -3,16 +3,16 @@ from pygame.locals import *
 import math
 
 class Bullet:
-    def __init__(self, window, x, y, angle, image):
-        self.image = pygame.image.load(image)
-        self.speed = 20
+    def __init__(self, window, x, y, angle):
+        self.image = pygame.image.load(".\visuals\PNG\Default size\bulletDark3_outline.png")
+        self.speed = 10
         self.window = window
         self.angle = angle
         self.x = x
         self.y = y
         self.rect = pygame.Rect(self.x, self.y, self.image.get_rect()[2], self.image.get_rect()[3])
 
-    def fire(self, obstacles, tanks):
+    def bullet(self, obstacles, tanks):
         flying = True
         while flying:
             self.x += self.speed * math.cos(self.angle * (math.pi/180))
