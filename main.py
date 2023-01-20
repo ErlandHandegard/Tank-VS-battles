@@ -29,7 +29,7 @@ tank2 = Tank(window, WINDOW_WIDTH - 50, WINDOW_HEIGHT / 2, 180, "./visuals/PNG/D
 crate = Obstacle(window, 500, 300, "./visuals/PNG/Default size/crateWood.png")
 tree = Obstacle(window, 800, 200, "./visuals/PNG/Default size/treeGreen_large.png" )
 
-tanks = []
+tanks = [tank, tank2]
 obstacles = [crate, tree]
 bullets = []
 
@@ -50,8 +50,8 @@ while True:
 
     #"Per frame" actions
     
-    tank.update(active_keys, obstacles)
-    tank2.update(active_keys, obstacles)
+    tank.update(active_keys, obstacles, tanks)
+    tank2.update(active_keys, obstacles, tanks)
 
     #Clear window
     window.blit(BACKGROUND_IMAGE, (0,0))
