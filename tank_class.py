@@ -88,6 +88,7 @@ class Tank:
                     spawn_point = random.choice(self.spawn_points)
                     self.x = spawn_point[0]
                     self.y = spawn_point[1]
+                    return True
 
 
     def draw(self):
