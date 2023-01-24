@@ -51,8 +51,10 @@ while True:
 
     #"Per frame" actions
     
-    tank.update(active_keys, obstacles, tanks)
-    tank2.update(active_keys, obstacles, tanks)
+    tank.update(active_keys, obstacles, tanks, bullets)
+    tank2.update(active_keys, obstacles, tanks, bullets)
+    for bullet in bullets:
+        bullet.update()
 
     #Clear window
     window.blit(BACKGROUND_IMAGE, (0,0))
@@ -63,6 +65,8 @@ while True:
 
     tank.draw()
     tank2.draw()
+    for bullet in bullets:
+        bullet.draw()
 
     for obstacle in obstacles:
         obstacle.draw()
@@ -73,6 +77,3 @@ while True:
 
     #Slow things down
     clock.tick(FRAMES_PER_SEC)
-
-
-
