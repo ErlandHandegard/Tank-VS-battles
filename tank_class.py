@@ -2,8 +2,10 @@ import pygame
 from pygame.locals import *
 import math
 from bullet import *
+import random
 
 class Tank:
+    
     def __init__(self, window, x, y, angle, image, keyset):
         self.x = x
         self.y = y
@@ -15,9 +17,15 @@ class Tank:
         self.keyset = keyset
         self.previous_position = (x, y)
         self.fire_cooldown = 0
+        self.spawn_points = [(50,50), (900,400), (50, 500 / 2), (1000 - 50, 500 / 2)]
 
     def update(self, active_keys, obstacles, tanks, bullets):
-        if self.fire_cooldown < 0:
+
+        self.hit(bullets)
+
+        self.bullet_fire(active_keys, bullets)
+
+        if self.fire_cooldown > 0:
             self.fire_cooldown -= 1
 
         if active_keys[self.keyset[4]]:
@@ -64,6 +72,23 @@ class Tank:
             elif self.rect.colliderect(tank.rect):
                 self.x = self.previous_position[0]
                 self.y = self.previous_position[1]
+
+
+    def bullet_fire(self, active_keys, bullets):
+        if active_keys[self.keyset[4]]:
+            if self.fire_cooldown == 0:
+                self.fire_cooldown = 15
+                bullet = Bullet(self.window, self.x + self.image.get_rect()[2] / 2 * math.cos(self.angle * (math.pi/180)) , self.y + self.image.get_rect()[3] / 2 * -math.sin(self.angle * (math.pi/180)), self.angle, self)
+                bullets.append(bullet)
+
+    def hit(self, bullets):
+        for bullet in bullets:
+            if self.rect.colliderect(bullet.rect):
+                if bullet.shooter != self:
+                    spawn_point = random.choice(self.spawn_points)
+                    self.x = spawn_point[0]
+                    self.y = spawn_point[1]
+
 
     def draw(self):
         #Lager en kopi av tank bildet rotert og tegner det i vinduet

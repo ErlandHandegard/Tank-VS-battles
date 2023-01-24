@@ -13,6 +13,7 @@ WINDOW_HEIGHT = 500
 FRAMES_PER_SEC = 30
 BACKGROUND_IMAGE = pygame.image.load("./visuals/game_background.png")
 
+
 #Initialize the world
 pygame.init()
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -43,6 +44,7 @@ while True:
 
         #Quit program
         if event.type == pygame.QUIT:
+            print(bullets)
             pygame.quit()
             sys.exit()
 
@@ -53,15 +55,20 @@ while True:
     
     tank.update(active_keys, obstacles, tanks, bullets)
     tank2.update(active_keys, obstacles, tanks, bullets)
+
+
     for bullet in bullets:
-        bullet.update()
+        bullet.update(obstacles, tanks, bullets)
+
 
     #Clear window
     window.blit(BACKGROUND_IMAGE, (0,0))
 
-    
+
 
     #Draw elements
+    for bullet in bullets:
+        bullet.draw()
 
     tank.draw()
     tank2.draw()
@@ -70,6 +77,7 @@ while True:
 
     for obstacle in obstacles:
         obstacle.draw()
+    
     
 
     #Update windows
