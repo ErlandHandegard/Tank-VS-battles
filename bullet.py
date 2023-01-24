@@ -3,7 +3,7 @@ from pygame.locals import *
 import math
 
 class Bullet:
-    def __init__(self, window, x, y, angle):
+    def __init__(self, window, x, y, angle, shooter):
         self.image = pygame.image.load("./visuals/PNG/Default size/bulletDark3_outline.png")
         self.speed = 10
         self.window = window
@@ -11,6 +11,7 @@ class Bullet:
         self.x = x
         self.y = y
         self.rect = pygame.Rect(self.x, self.y, self.image.get_rect()[2], self.image.get_rect()[3])
+        self.shooter = shooter
 
     def update(self, obstacles, tanks, bullets):
         

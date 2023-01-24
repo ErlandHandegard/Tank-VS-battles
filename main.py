@@ -13,6 +13,7 @@ WINDOW_HEIGHT = 500
 FRAMES_PER_SEC = 30
 BACKGROUND_IMAGE = pygame.image.load("./visuals/game_background.png")
 
+
 #Initialize the world
 pygame.init()
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -66,6 +67,8 @@ while True:
 
 
     #Draw elements
+    for bullet in bullets:
+        bullet.draw()
 
     tank.draw()
     tank2.draw()
@@ -73,8 +76,7 @@ while True:
     for obstacle in obstacles:
         obstacle.draw()
     
-    for bullet in bullets:
-        bullet.draw()
+    
 
     #Update windows
     pygame.display.update()
