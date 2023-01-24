@@ -16,8 +16,13 @@ class Tank:
         self.previous_position = (x, y)
         self.fire_cooldown = 0
 
-    def update(self, active_keys, obstacles, tanks):
-        if self.fire_cooldown < 0:
+    def update(self, active_keys, obstacles, tanks, bullets):
+
+        self.hit(bullets)
+
+        self.bullet_fire(active_keys, bullets)
+
+        if self.fire_cooldown > 0:
             self.fire_cooldown -= 1
 
         #Endrer rotasjon
@@ -60,6 +65,18 @@ class Tank:
                 self.y = self.previous_position[1]
 
 
+    def bullet_fire(self, active_keys, bullets):
+        if active_keys[self.keyset[4]]:
+            if self.fire_cooldown == 0:
+                self.fire_cooldown = 15
+                bullet = Bullet(self.window, self.x + 30 * math.cos(self.angle * (math.pi/180)), self.y, self.angle)
+                bullets.append(bullet)
+
+    def hit(self, bullets):
+        for bullet in bullets:
+            if self.rect.colliderect(bullet.rect):
+                print('hit')
+
 
     def draw(self):
         #Lager en kopi av tank bildet rotert og tegner det i vinduet
@@ -67,11 +84,3 @@ class Tank:
         self.window.blit(image_copy,
         (self.x - int(image_copy.get_width() / 2),
          self.y - int(image_copy.get_height() / 2)))
-
-    def bulletfire(self, active_keys, bullets):
-        if active_keys[self.keyset[4]]:
-            if self.fire_cooldown == 0:
-                self.fire_cooldown = 30
-                bullet = Bullet(self.window, self.x - int(self.image.get_rect()[2] / 2), self.y - int(self.image.get_rect()[3] / 2), self.angle)
-                bullets.append(bullet)
-            

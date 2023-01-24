@@ -43,6 +43,7 @@ while True:
 
         #Quit program
         if event.type == pygame.QUIT:
+            print(bullets)
             pygame.quit()
             sys.exit()
 
@@ -51,13 +52,18 @@ while True:
 
     #"Per frame" actions
     
-    tank.update(active_keys, obstacles, tanks)
-    tank2.update(active_keys, obstacles, tanks)
+    tank.update(active_keys, obstacles, tanks, bullets)
+    tank2.update(active_keys, obstacles, tanks, bullets)
+
+
+    for bullet in bullets:
+        bullet.update(obstacles, tanks, bullets)
+
 
     #Clear window
     window.blit(BACKGROUND_IMAGE, (0,0))
 
-    
+
 
     #Draw elements
 
@@ -67,6 +73,8 @@ while True:
     for obstacle in obstacles:
         obstacle.draw()
     
+    for bullet in bullets:
+        bullet.draw()
 
     #Update windows
     pygame.display.update()
