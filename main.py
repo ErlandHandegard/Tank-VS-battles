@@ -5,6 +5,7 @@ import sys
 from tank_class import *
 from obstacle import *
 from bullet import *
+from player import *
 
 #Define constants
 
@@ -27,6 +28,9 @@ clock = pygame.time.Clock()
 
 tank = Tank(window, 50, WINDOW_HEIGHT / 2, 0, "./visuals/PNG/Default size/tank_blue.png",  (K_w, K_s, K_a, K_d, K_c))
 tank2 = Tank(window, WINDOW_WIDTH - 50, WINDOW_HEIGHT / 2, 180, "./visuals/PNG/Default size/tank_green.png", (K_UP, K_DOWN, K_LEFT, K_RIGHT, K_m))
+
+player1 = Player(window,tank, (25, 25))
+player2 = Player(window,tank2, (WINDOW_WIDTH - 55, 25))
 
 crate = Obstacle(window, 500, 300, "./visuals/PNG/Default size/crateWood.png")
 tree = Obstacle(window, 800, 200, "./visuals/PNG/Default size/treeGreen_large.png" )
@@ -56,6 +60,7 @@ while True:
     tank.update(active_keys, obstacles, tanks, bullets)
     tank2.update(active_keys, obstacles, tanks, bullets)
 
+    
 
     for bullet in bullets:
         bullet.update(obstacles, tanks, bullets)
@@ -67,11 +72,15 @@ while True:
 
 
     #Draw elements
+    player1.draw()
+    player2.draw()
+
     for bullet in bullets:
         bullet.draw()
 
     tank.draw()
     tank2.draw()
+
     for bullet in bullets:
         bullet.draw()
 

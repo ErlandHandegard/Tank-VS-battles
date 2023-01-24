@@ -17,7 +17,8 @@ class Tank:
         self.keyset = keyset
         self.previous_position = (x, y)
         self.fire_cooldown = 0
-        self.spawn_points = [(50,50), (900,400), (50, 500 / 2), (1000 - 50, 500 / 2)]
+        self.hits_taken = 0
+        self.spawn_points = [(75,75), (900,400), (50, 500 / 2), (1000 - 50, 500 / 2)]
 
     def update(self, active_keys, obstacles, tanks, bullets):
 
@@ -28,12 +29,7 @@ class Tank:
         if self.fire_cooldown > 0:
             self.fire_cooldown -= 1
 
-        if active_keys[self.keyset[4]]:
-            if self.fire_cooldown == 0:
-                self.fire_cooldown = 30
-                bullet = Bullet(self.window, self.x - int(self.image.get_rect()[2] / 2), self.y - int(self.image.get_rect()[3] / 2), self.angle)
-                bullets.append(bullet)
-            
+
         #Endrer rotasjon
         if active_keys[self.keyset[3]]:
             self.angle -= self.speed
@@ -88,7 +84,7 @@ class Tank:
                     spawn_point = random.choice(self.spawn_points)
                     self.x = spawn_point[0]
                     self.y = spawn_point[1]
-                    return True
+                    self.hits_taken += 1
 
 
     def draw(self):
