@@ -58,11 +58,12 @@ class Tank:
         self.rect = pygame.Rect(self.x - int(self.image.get_rect()[2] / 2) , self.y - int(self.image.get_rect()[3] / 2), self.image.get_rect()[2], self.image.get_rect()[3])
 
         #Test for kollisjon med hindringer og tanks
-        for (obstacle, tank) in zip(obstacles, tanks):
+        for obstacle in obstacles:
             if self.rect.colliderect(obstacle.rect):
                 self.x = self.previous_position[0]
                 self.y = self.previous_position[1]
 
+        for tank in tanks:
             if tank.rect == self.rect:
                 pass
             elif self.rect.colliderect(tank.rect):
