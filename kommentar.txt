@@ -1,0 +1,3 @@
+Funkar fint hos meg. Eit par tips:
+
+Skriv ned kontrollar ein eller annan stad. Gjer det umogleg å skyte gjennom hinder. Slutt spelet når ein spelar når null.
